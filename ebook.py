@@ -2,7 +2,7 @@
 Ebook data model and representation.
 """
 from dataclasses import dataclass, asdict
-from typing import Optional
+from typing import Optional, Dict, Any
 
 
 @dataclass
@@ -15,12 +15,12 @@ class Book:
     file_path: Optional[str] = None
     isbn: Optional[str] = None
     
-    def to_dict(self):
+    def to_dict(self) -> Dict[str, Any]:
         """Convert book to dictionary."""
         return asdict(self)
     
     @classmethod
-    def from_dict(cls, data):
+    def from_dict(cls, data: Dict[str, Any]) -> 'Book':
         """Create book from dictionary."""
         return cls(**data)
     
@@ -36,7 +36,7 @@ class Book:
         ]
         return any(query_lower in field for field in fields)
     
-    def __str__(self):
+    def __str__(self) -> str:
         """String representation of the book."""
         parts = [f'"{self.title}" by {self.author}']
         if self.year:

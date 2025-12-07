@@ -3,7 +3,7 @@ Storage layer for ebook collection.
 """
 import json
 import os
-from typing import List, Optional
+from typing import List, Optional, Tuple
 from ebook import Book
 
 
@@ -52,7 +52,7 @@ class EbookStorage:
         books = self.load()
         return [book for book in books if book.matches_query(query)]
     
-    def search_books_with_indices(self, query: str) -> List[tuple]:
+    def search_books_with_indices(self, query: str) -> List[Tuple[int, Book]]:
         """Search books by query and return list of (index, book) tuples."""
         books = self.load()
         return [(i, book) for i, book in enumerate(books) if book.matches_query(query)]
