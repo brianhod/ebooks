@@ -102,6 +102,25 @@ def test_storage_search_no_results(temp_storage):
     assert len(results) == 0
 
 
+def test_storage_search_books_with_indices(temp_storage):
+    """Test searching books with indices."""
+    temp_storage.add_book(Book(title="Python Programming", author="John Doe"))
+    temp_storage.add_book(Book(title="Java Basics", author="Jane Smith"))
+    temp_storage.add_book(Book(title="Advanced Python", author="Bob Johnson"))
+    
+    results = temp_storage.search_books_with_indices("python")
+    assert len(results) == 2
+    
+    # Check that indices are correct
+    indices = [idx for idx, _ in results]
+    assert 0 in indices  # First Python book
+    assert 2 in indices  # Second Python book
+    
+    # Check that books are correct
+    books = [book for _, book in results]
+    assert all("Python" in book.title for book in books)
+
+
 def test_storage_get_book(temp_storage):
     """Test getting a book by index."""
     temp_storage.add_book(Book(title="Book 1", author="Author 1"))

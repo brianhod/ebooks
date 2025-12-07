@@ -42,15 +42,13 @@ def cmd_list(args, storage):
 
 def cmd_search(args, storage):
     """Search for ebooks by query."""
-    books = storage.search_books(args.query)
-    if not books:
+    results = storage.search_books_with_indices(args.query)
+    if not results:
         print(f"No books found matching '{args.query}'.")
         return
     
-    print(f"Found {len(books)} book(s) matching '{args.query}':\n")
-    all_books = storage.load()
-    for book in books:
-        index = all_books.index(book)
+    print(f"Found {len(results)} book(s) matching '{args.query}':\n")
+    for index, book in results:
         print(f"{index}: {book}")
 
 

@@ -52,6 +52,11 @@ class EbookStorage:
         books = self.load()
         return [book for book in books if book.matches_query(query)]
     
+    def search_books_with_indices(self, query: str) -> List[tuple]:
+        """Search books by query and return list of (index, book) tuples."""
+        books = self.load()
+        return [(i, book) for i, book in enumerate(books) if book.matches_query(query)]
+    
     def get_book(self, index: int) -> Optional[Book]:
         """Get a book by index."""
         books = self.load()
